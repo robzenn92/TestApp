@@ -1,4 +1,18 @@
 <%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+
+<div class="alert alert-error">
+<% if @user.errors.any? %>
+<%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:
+
+  <ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+</div>
+
+<% end %>
+
   <div class="control-group">
     <%= f.label :name, :class => 'control-label' %>
     <div class="controls">
@@ -9,6 +23,20 @@
     <%= f.label :surname, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :surname, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :username, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
     </div>
   </div>
 
