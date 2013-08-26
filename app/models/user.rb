@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 	has_secure_password
 	has_gravatar :secure => true, :filetype => :png, :size => 120
 
-	def fullname
+	def full_name
 		name.downcase.capitalize + " " + surname.downcase.capitalize
 	end
 

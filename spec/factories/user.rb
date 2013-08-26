@@ -7,7 +7,7 @@ FactoryGirl.define do
 		user.surname { Faker::Name.last_name }
 		user.username { Faker::Internet.user_name }
 		user.email { Faker::Internet.email(user.surname) }
-		user.password_digest { Faker::Internet.user_name }
+		user.password_digest { Faker::Lorem.characters(6) }
 	end
 
 	factory :invalid_user, parent: :user do |user|

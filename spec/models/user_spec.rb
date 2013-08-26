@@ -1,9 +1,17 @@
 require 'spec_helper'
-require 'factories/factory_helper'
 
 describe User do
 
 	describe "Creating a new user" do
+
+		before :all do
+
+			@long = Faker::Lorem.characters(41)
+			@short = Faker::Lorem.characters(1)
+			@valid_password = Faker::Lorem.characters(6)
+			@invalid_password = Faker::Lorem.characters(5)
+
+		end
 
 		# VALID USER
 		# -------------------------------------------------------------------
@@ -30,22 +38,23 @@ describe User do
 		# -------------------------------------------------------------------
 
 		it "Should not create a user with short NAME" do
-			u = FactoryGirl.build(:user, name: FactoryHelper::short)
+			include 'FactoryHelper'
+			u = FactoryGirl.build(:user, name: @short )
 			u.should_not be_valid
 		end
 
 		it "Should not create a user with short SURNAME" do
-			u = FactoryGirl.build(:user, surname: FactoryHelper::short)
+			u = FactoryGirl.build(:user, surname: @short )
 			u.should_not be_valid
 		end
 
 		it "Should not create a user with short USERNAME" do
-			u = FactoryGirl.build(:user, username: FactoryHelper::short)
+			u = FactoryGirl.build(:user, username: @short)
 			u.should_not be_valid
 		end
 
 		it "Should not create a user with short PASSWORD" do
-			u = FactoryGirl.build(:user, password_digest: FactoryHelper::invalid_password)
+			u = FactoryGirl.build(:user, password_digest: @invalid_password)
 			u.should_not be_valid
 		end
 
@@ -53,22 +62,22 @@ describe User do
 		# -------------------------------------------------------------------
 
 		it "Should not create a user with long NAME" do
-			u = FactoryGirl.build(:user, name: FactoryHelper::long)
+			u = FactoryGirl.build(:user, name: @long )
 			u.should_not be_valid
 		end
 
 		it "Should not create a user with long SURNAME" do
-			u = FactoryGirl.build(:user, surname: FactoryHelper::long)
+			u = FactoryGirl.build(:user, surname: @long )
 			u.should_not be_valid
 		end
 
 		it "Should not create a user with long USERNAME" do
-			u = FactoryGirl.build(:user, username: FactoryHelper::long)
+			u = FactoryGirl.build(:user, username: @long)
 			u.should_not be_valid
 		end
 
 		it "Should not create a user with long PASSWORD" do
-			u = FactoryGirl.build(:user, username: FactoryHelper::invalid_password)
+			u = FactoryGirl.build(:user, password_digest: @invalid_password)
 			u.should_not be_valid
 		end
 
@@ -104,23 +113,25 @@ describe User do
 	describe "Testing instance methods" do
 
 		it "full_name method should returns full name" do
-			user = FactoryGirl.build(:user)
-			user.full_name == [user.name, user.surname].join(" ")
+			user = FactoryGirl.create(:user)
+			user.name.upcase
+			user.surname.upcase
+			user.full_name.should eq [user.name, user.surname].join(" ")
 		end
-		
+
 	end
 	
 	describe "Searching for a user" do
 
 	 	before :each do
-			@smith = FactoryGirl.create(:user, username: "marietto")
-			@jones = FactoryGirl.create(:user, name: "jonetta") 
-			@johnson = FactoryGirl.create(:user, name: "google")
+			@marietto = FactoryGirl.create(:user, username: "marietto")
+			@jonetta = FactoryGirl.create(:user, username: "jonetta") 
+			@google = FactoryGirl.create(:user, username: "google")
 	 	end
 
-	 	context "Find a user" do
+	 	context "Found a user" do
 	 		it "Returns the user searched" do
-	 			User.search("marietto").should == @jones
+	 			User.search("marietto").should == @marietto
 	 		end
 	 	end
 
