@@ -5,11 +5,23 @@ class User < ActiveRecord::Base
 	include Gravtastic
 
 	before_validation :prep_email
+
 	validates :name, :surname, :username, :email, :password_digest, :presence => true
-	validates :username, :uniqueness => true, :length => { minimum: 3, maximum: 18 }
-	validates :email, :uniqueness => true, :format => { with: /^[\w.+-]+@([\w]+.)+\w+$/ }
+
+	validates :name, 			:length => 	{ minimum: 2, maximum: 40 }
+	validates :surname, 		:length => 	{ minimum: 2, maximum: 40 }
+	validates :username,		:length => 	{ minimum: 3, maximum: 18 }
+	validates :password_digest,	:length => 	{ minimum: 6 }
+
+	validates :username, 	:uniqueness => true, 
+	validates :email, 		:uniqueness => true, :format => { with: /^[\w.+-]+@([\w]+.)+\w+$/ }
+	
 	has_secure_password
 	has_gravatar :secure => true, :filetype => :png, :size => 120
+
+	def fullname
+		name.downcase.capitalize + " " + surname.downcase.capitalize
+	end
 
 	private
 
