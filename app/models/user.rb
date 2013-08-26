@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 	validates :username,		:length => 	{ minimum: 3, maximum: 18 }
 	validates :password_digest,	:length => 	{ minimum: 6 }
 
-	validates :username, 	:uniqueness => true, 
+	validates :username, 	:uniqueness => true
 	validates :email, 		:uniqueness => true, :format => { with: /^[\w.+-]+@([\w]+.)+\w+$/ }
 	
 	has_secure_password
