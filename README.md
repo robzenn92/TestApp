@@ -1,4 +1,6 @@
 TestApp
 =======
 
-First Rails Test-Driven application
+<h1>
+Ruby on Rails: First application tested using RSpec
+</h1>
