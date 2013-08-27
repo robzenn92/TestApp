@@ -80,8 +80,9 @@ describe UsersController do
 
  		it "saves the new user in the database" do
  			expect{
-        post :create, user: FactoryGirl.attributes_for(:user)
-      }.to change(User,:count).by(1)
+                post :create, user: FactoryGirl.attributes_for(:user)
+            }.to change(User,:count).by(1)
+            page.should have_content "User was successfully created."
  		end
  		
  		it "redirects to the home page" do
@@ -102,7 +103,7 @@ describe UsersController do
  		it "re-renders the :new template" do
 
             visit new_user_path
-
+            fill
 			post :create, user: FactoryGirl.attributes_for(:invalid_user)
             page.should have_content "Some errors occurred."
  		end
