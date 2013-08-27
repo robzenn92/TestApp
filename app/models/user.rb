@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-	attr_accessible :name, :surname, :username, :email, :password_digest
+	attr_accessible :name, :surname, :username, :email, :password_digest, :password, :password_confirmation
 
 	include Gravtastic
 
@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 	validates :name, 			:length => 	{ minimum: 2, maximum: 40 }
 	validates :surname, 		:length => 	{ minimum: 2, maximum: 40 }
 	validates :username,		:length => 	{ minimum: 3, maximum: 18 }
-	validates :password_digest,	:length => 	{ minimum: 6, maximum: 18 }
+	validates :password,		:length => 	{ minimum: 6, maximum: 18 }
 
 	validates :username, 	:uniqueness => true
 	validates :email, 		:uniqueness => true, :format => { with: /^[\w.+-]+@([\w]+.)+\w+$/ }
