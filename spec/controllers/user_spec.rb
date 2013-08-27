@@ -15,7 +15,7 @@ describe UsersController do
     end
 
     it "renders the RSpec generated template" do
-    	visit users_path
+    	visit users_url
         page.should have_content "Users"
     end
 
@@ -103,8 +103,8 @@ describe UsersController do
  		it "re-renders the :new template" do
 
             visit new_user_path
-            fill
 			post :create, user: FactoryGirl.attributes_for(:invalid_user)
+            response.should redirect_to users_path
             page.should have_content "Some errors occurred."
  		end
  	end

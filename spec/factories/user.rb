@@ -18,14 +18,5 @@ FactoryGirl.define do
 		user.password nil
 		user.password_confirmation nil
 	end
-
-
-	# factory :user_with_no_name, parent: :user do |f|
-	# 	f.name nil
-	# end
-
-	# factory :user_with_no_name_and_surname, parent: :user_with_no_name do |f|
-	# 	f.surname nil
-	# end
-
+	
 end
