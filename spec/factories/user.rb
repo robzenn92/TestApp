@@ -5,7 +5,7 @@ FactoryGirl.define do
 	factory :user do |user|
 		user.name { Faker::Name.first_name }
 		user.surname { Faker::Name.last_name }
-		user.username { Faker::Internet.user_name }
+		user.username { Faker::Lorem.characters(10) }
 		user.email { Faker::Internet.email(user.surname) }
 		user.password_digest { Faker::Lorem.characters(6) }
 	end
