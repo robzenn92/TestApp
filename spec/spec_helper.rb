@@ -41,7 +41,7 @@ RSpec.configure do |config|
   config.include FactoryHelper
 
   # Capybara config
-  # config.include Capybara, :type => :request
+  config.include Capybara::DSL, :type => :requests
   # config.include Capybara::DSL, :type => :controller
   # config.include Capybara::DSL, :type => :controllers
   
