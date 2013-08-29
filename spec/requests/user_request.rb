@@ -10,15 +10,15 @@ describe "Visit root page" do
 end
 
 
-describe "Starting on root path" do
+describe "Starting on root path, filling user form" do
 
 	before :each do
 		visit users_url
 	end
 
-	context "should create a new user with valid fields" do
+	context "with valid fields" do
 
-		it "" do
+		it "should create a new user and redirect to :show template" do
 
 	     	expect {
 				click_on "New"
@@ -37,9 +37,9 @@ describe "Starting on root path" do
 
     end
 
-    context "should not create a new user without password confirmation" do
+    context "without password confirmation" do
 
-    	it "" do
+    	it "should not create a new user but render :new template" do
 	     	expect {
 				click_on "New"
 				fill_in "user_name", with: "Mario"
@@ -48,8 +48,8 @@ describe "Starting on root path" do
 				fill_in "user_email", with: "mariorossi@mario.com"
 				fill_in "user_password", with: "mario92"
 				click_on "Create User"
-	     	}.to change(User, :count).by(0)
-	     	page.should have_content "Some errors occurred."
+	     	}.to_not change(User, :count)
+
 	     	page.should_not have_content "mariorossi"
 	    end
     end
