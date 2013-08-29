@@ -1,5 +1,7 @@
 TestApp::Application.routes.draw do
   
+  resources :messages
+
   resources :users
 
   # The priority is based upon order of creation:
