@@ -6,7 +6,7 @@ describe User do
 
 		before :all do
 
-			@long = Faker::Lorem.characters(41)
+			@long = Faker::Lorem.characters(21)
 			@short = Faker::Lorem.characters(1)
 			@valid_password = Faker::Lorem.characters(6)
 			@invalid_password = Faker::Lorem.characters(5)
@@ -34,6 +34,19 @@ describe User do
 			u.should_not be_valid
 		end
 
+		it "Should not create a user with no password and password_confirmation" do
+			u = FactoryGirl.build(:user)
+			u.password = nil
+			u.password_confirmation = nil
+			u.should_not be_valid
+		end
+
+		it "Should not create a user with no password_digest" do
+			u = FactoryGirl.build(:user)
+			u.password_digest = nil
+			u.should_not be_valid
+		end
+
 		# SHORT ATTRIBUTES
 		# -------------------------------------------------------------------
 
@@ -54,7 +67,7 @@ describe User do
 		end
 
 		it "Should not create a user with short PASSWORD" do
-			u = FactoryGirl.build(:user, password_digest: @invalid_password)
+			u = FactoryGirl.build(:user, password: @invalid_password,  password_confirmation: @invalid_password)
 			u.should_not be_valid
 		end
 
@@ -77,7 +90,7 @@ describe User do
 		end
 
 		it "Should not create a user with long PASSWORD" do
-			u = FactoryGirl.build(:user, password_digest: @invalid_password)
+			u = FactoryGirl.build(:user, password: @long, password_confirmation: @long)
 			u.should_not be_valid
 		end
 
@@ -105,15 +118,25 @@ describe User do
 		end
 
 		it "Should not create a user without password" do
-			u = FactoryGirl.build(:user, password_digest: nil)
+			u = FactoryGirl.build(:user, password: nil,  password_confirmation: nil)
 			u.should_not be_valid
 		end
 	end
 
 	describe "Testing instance methods" do
 
+		it "should downcase and capitalize name" do
+			user = FactoryGirl.create(:user, name: "marIo")
+			user.name.should eq "Mario"
+		end
+
+		it "should downcase and capitalize surname" do
+			user = FactoryGirl.create(:user, surname: "ROssI")
+			user.surname.should eq "Rossi"
+		end
+
 		it "full_name method should returns full name" do
-			user = FactoryGirl.create(:user)
+			user = FactoryGirl.build(:user)
 			user.name.upcase
 			user.surname.upcase
 			user.full_name.should eq [user.name, user.surname].join(" ")
@@ -124,20 +147,20 @@ describe User do
 	describe "Searching for a user" do
 
 	 	before :each do
-			@marietto = FactoryGirl.create(:user, username: "marietto")
-			@jonetta = FactoryGirl.create(:user, username: "jonetta") 
-			@google = FactoryGirl.create(:user, username: "google")
+			@marietto = FactoryGirl.create(:user, username: "Marietto")
+			@jonetta = FactoryGirl.create(:user, username: "Jonetta") 
+			@google = FactoryGirl.create(:user, username: "Google")
 	 	end
 
 	 	context "Found a user" do
 	 		it "Returns the user searched" do
-	 			User.search("marietto").should == @marietto
+	 			User.search("Marietto").should == @marietto
 	 		end
 	 	end
 
 	 	context "No user found" do
 	 		it "Does not returns the user searched" do
-	 			User.search("yahoo").should == nil
+	 			User.search("Yahoo").should == nil
 	 		end
 	 	end
  	end
