@@ -31,6 +31,7 @@ describe "Starting on root path, filling user form" do
 				click_on "Create User"
 	     	}.to change(User, :count).by(1)
 	     	page.should have_content "User was successfully created."
+	     	page.should have_content "User was successfully created."
 	     	page.should have_content "mariorossi"
 
     	end
