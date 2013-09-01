@@ -128,17 +128,17 @@ describe User do
 
 	describe "Testing instance methods" do
 
-		it "should downcase and capitalize name" do
+		it "should downcase and capitalize the name" do
 			user = FactoryGirl.create(:user, name: "marIo")
 			user.name.should eq "Mario"
 		end
 
-		it "should downcase and capitalize surname" do
+		it "should downcase and capitalize the surname" do
 			user = FactoryGirl.create(:user, surname: "ROssI")
 			user.surname.should eq "Rossi"
 		end
 
-		it "full_name method should returns full name" do
+		it "full_name method should return full name" do
 			user = FactoryGirl.build(:user)
 			user.name.upcase
 			user.surname.upcase
@@ -155,7 +155,7 @@ describe User do
 			@google = FactoryGirl.create(:user, username: "Google")
 	 	end
 
-	 	context "Found a user" do
+	 	context "User found" do
 	 		it "Returns the user searched" do
 	 			User.search("Marietto").should == @marietto
 	 		end
