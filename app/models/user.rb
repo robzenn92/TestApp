@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 
-	attr_accessible :name, :surname, :username, :email, :password, :password_confirmation
+	attr_accessible :id, :name, :surname, :username, :email, 
+					:created_at, :updated_at, :password_digest,
+					:password, :password_confirmation
 
 	include Gravtastic
 
